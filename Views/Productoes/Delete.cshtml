@@ -1,0 +1,46 @@
+﻿@model MASAMADREPROY.Models.Producto
+
+@{
+    ViewData["Title"] = "Eliminar Producto";
+}
+
+<h1>Eliminar Producto</h1>
+
+<h3>¿Estás seguro de que deseas eliminar el siguiente producto?</h3>
+
+<div class="card mb-4">
+    <!-- Mostrar imagen con la ruta correcta -->
+    @if (!string.IsNullOrEmpty(Model.Imagen))
+    {
+        <img src="@Url.Content(Model.Imagen)" class="card-img-top" style="width: 300px; height: auto;" alt="Imagen del producto" />
+    }
+    else
+    {
+        <img src="https://via.placeholder.com/150" class="card-img-top" style="width: 300px; height: auto;" alt="Imagen no disponible" />
+    }
+    <div class="card-body">
+        <h5 class="card-title">@Model.Nombre</h5>
+        <p class="card-text">@Model.Descripcion</p>
+        <p class="card-text"><strong>Precio: </strong>$@Model.Precio.ToString("N0")</p>
+        <p class="card-text"><strong>Stock: </strong>@Model.CantidadEnStock</p>
+        <p class="card-text">
+            <strong>Disponible: </strong>
+            @if (Model.Disponible)
+            {
+                <span class="badge bg-success">Sí</span>
+            }
+            else
+            {
+                <span class="badge bg-danger">No</span>
+            }
+        </p>
+    </div>
+</div>
+
+
+<!-- Formulario para eliminar el producto -->
+<form asp-action="Delete" method="post">
+    <input type="hidden" asp-for="Id" />
+    <button type="submit" class="btn btn-danger">Eliminar</button>
+    <a href="@Url.Action("Index")" class="btn btn-secondary">Cancelar</a>
+</form>

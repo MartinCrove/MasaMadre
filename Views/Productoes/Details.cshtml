@@ -1,0 +1,75 @@
+﻿@model MASAMADREPROY.Models.Producto
+
+@{
+    ViewData["Title"] = "Detalles del Producto";
+}
+
+<h1 class="text-center">@Model.Nombre</h1>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <!-- Columna para mostrar la imagen y el precio del producto -->
+        <div class="col-md-4">
+            <!-- Mostrar imagen del producto -->
+            @if (!string.IsNullOrEmpty(Model.Imagen))
+            {
+                <img src="@Url.Content(Model.Imagen)" class="img-fluid" alt="Imagen del producto" />
+            }
+            else
+            {
+                <img src="https://via.placeholder.com/150" class="img-fluid" alt="Imagen no disponible" />
+            }
+
+            <!-- Tarjeta para el precio del producto (debajo de la imagen) -->
+            <div class="card mt-4">
+                <div class="card-body">
+                    <h5 class="card-title text-center">Precio</h5>
+                    <p class="card-text text-center"><strong>$@Model.Precio.ToString("N0")</strong></p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Columna para los detalles del producto -->
+        <div class="col-md-6">
+            <!-- Tarjeta para el nombre del producto -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h4 class="card-title text-center">@Model.Nombre</h4>  <!-- Nombre del producto -->
+                </div>
+            </div>
+
+            <!-- Tarjeta para la descripción del producto -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Descripción</h5>
+                    <p class="card-text">@Model.Descripcion</p>
+                </div>
+            </div>
+
+            <!-- Tarjeta para el stock disponible -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <h5 class="card-title">Stock Disponible</h5>
+                    <p class="card-text"><strong>@Model.CantidadEnStock</strong></p>
+                </div>
+            </div>
+
+            <!-- Formulario para comprar el producto -->
+            <div class="card mb-4">
+                <div class="card-body">
+                    <!-- Botón para comprar el producto -->
+                    <form method="post" asp-action="Comprar" asp-route-id="@Model.Id">
+                        <button type="submit" class="btn btn-primary btn-block">Comprar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Botón para volver a la lista de productos, centrado -->
+    <div class="row justify-content-center">
+        <p>
+            <a href="@Url.Action("Index")" class="btn btn-secondary">Volver a la lista de productos</a>
+        </p>
+    </div>
+</div>

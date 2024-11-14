@@ -1,0 +1,90 @@
+﻿@model IEnumerable<MASAMADREPROY.Models.Producto>
+
+@{
+    ViewData["Title"] = "Productos";
+}
+
+<h1>Productos</h1>
+
+<p>
+    <!-- Mostrar el botón de Crear Nuevo Producto solo si el usuario tiene el rol de Admin -->
+    @if (User.IsInRole("Admin"))
+    {
+        <a href="@Url.Action("Create")" class="btn btn-primary">Crear Nuevo Producto</a>
+    }
+</p>
+
+<div class="row">
+    @foreach (var producto in Model)
+    {
+        <div class="col-md-4">
+            <!-- Toda la tarjeta es un enlace hacia la vista de detalles del producto -->
+            <a href="@Url.Action("Details", new { id = producto.Id })" class="card mb-4 custom-card-link">
+                <div class="card-body">
+                    <!-- Mostrar imagen con la ruta correcta -->
+                    @if (!string.IsNullOrEmpty(producto.Imagen))
+                    {
+                        <img src="@Url.Content(producto.Imagen)" class="card-img-top" alt="Imagen del producto" />
+                    }
+                    else
+                    {
+                        <img src="https://via.placeholder.com/150" class="card-img-top" alt="Imagen no disponible" />
+                    }
+
+                    <h5 class="card-title">@producto.Nombre</h5>
+                    <p class="card-text">@producto.Descripcion</p>
+                    <p class="card-text"><strong>Precio: </strong>$@producto.Precio.ToString("N0")</p>
+                    <p class="card-text"><strong>Stock: </strong>@producto.CantidadEnStock</p>
+                    <p class="card-text">
+                        <strong>Disponible: </strong>
+                        @if (producto.Disponible)
+                        {
+                            <span class="badge bg-success">Sí</span>
+                        }
+                        else
+                        {
+                            <span class="badge bg-danger">No</span>
+                        }
+                    </p>
+                  
+                </div>
+                
+            </a>
+            @if (User.IsInRole("Admin"))
+            {
+                <a href="@Url.Action("Edit", new { id = producto.Id })" class="btn btn-warning">Editar</a>
+                <a href="@Url.Action("Delete", new { id = producto.Id })" class="btn btn-danger">Eliminar</a>
+               
+            }
+        </div>
+    }
+    @if (User.IsInRole("Admin"))
+    {
+        <p>
+            <!-- Botón para exportar a Excel -->
+            <a href="@Url.Action("ExportarExcel", "Productoes")" class="btn btn-success">Exportar a Excel</a>
+        </p>
+    }
+</div>
+
+<!-- Paginación -->
+<div class="pagination">
+    @for (int i = 1; i <= (int)ViewData["TotalPages"]; i++)
+    {
+        <a href="@Url.Action("Index", new { page = i })" class="@(i == (int)ViewData["CurrentPage"] ? "btn btn-primary" : "btn btn-secondary")">@i</a>
+    }
+</div>
+
+<!-- Agregar el CSS aquí -->
+<style>
+    /* Estilo para eliminar el color azul y subrayado de los enlaces dentro de las tarjetas */
+    .custom-card-link {
+        text-decoration: none;
+        color: inherit; /* Mantener el color del texto normal (el que ya tiene la tarjeta) */
+    }
+
+        .custom-card-link:hover {
+            text-decoration: none;
+            color: inherit; /* Asegura que el color no cambie al pasar el ratón */
+        }
+</style>

@@ -1,0 +1,29 @@
+﻿@{
+    ViewData["Title"] = "Bienvenido a Masamadre";
+}
+
+<div class="container text-center">
+    <h1 class="display-4 text-primary">Bienvenido a Panadería Masamadre</h1>
+    <p class="lead text-muted">Deliciosos panes, pasteles y más, preparados con el mejor amor y dedicación.</p>
+
+    <!-- Imagen representativa de la panadería -->
+    <img src="~/Imagenes/panaderia.jpg" alt="Imagen de la panadería Masamadre" class="img-fluid rounded-circle mb-4" style="max-width: 300px; height: auto;">
+
+    <!-- Botones para navegar por el sitio -->
+    <div class="mt-4">
+        <a href="@Url.Action("Index", "Productoes")" class="btn btn-lg btn-success">Ver nuestros productos</a>
+        
+    </div>
+
+    <!-- Sección sobre nosotros -->
+    <div class="row mt-5">
+        <div class="col-md-6">
+            <h3>¿Quiénes somos?</h3>
+            <p>En Masamadre, nos dedicamos a ofrecerte los productos más frescos y deliciosos para toda la familia. Desde pan artesanal hasta deliciosos pasteles, tenemos algo para todos.</p>
+        </div>
+        <div class="col-md-6">
+            <h3>Visítanos</h3>
+            <p>Estamos ubicados en el corazón de la ciudad, listos para ofrecerte lo mejor de nuestra panadería. Ven y descubre los sabores únicos de Masamadre.</p>
+        </div>
+    </div>
+</div>
